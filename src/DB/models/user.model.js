@@ -44,7 +44,7 @@ userSchema
   .get(function () {
     return this.firstName + " " + this.lastName;
   })
-  .set(function () {
+  .set(function (val) {
     this.set({ firstName: val.split(" ")[0], lastName: val.split(" ")[1] });
   });
 

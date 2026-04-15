@@ -4,6 +4,7 @@ import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import { PORT, WHITE_LIST } from "../config/config.service.js";
 import { checkConnectionDB } from "./DB/connectionDB.js";
+import { authRouter } from "./modules/auth/auth.controller.js";
 
 const app = express();
 const port = PORT;
@@ -32,7 +33,7 @@ const bootstrap = async () => {
   // Database
   checkConnectionDB();
   // Routes
-  //...
+  app.use("/auth", authRouter);
   app.use("{/*demo}", (req, res, next) => {
     throw new Error(`Url ${req.originalUrl} Not Found!`, { cause: 404 });
   });

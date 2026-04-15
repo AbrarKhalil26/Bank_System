@@ -13,7 +13,7 @@ const bankAccountSchema = new mongoose.Schema({
     required: true,
   },
   balanceCurrency: {
-    type: String,
+    type: Number,
     required: true,
   },
   status: {
