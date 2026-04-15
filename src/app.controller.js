@@ -5,6 +5,7 @@ import rateLimit from "express-rate-limit";
 import { PORT, WHITE_LIST } from "../config/config.service.js";
 import { checkConnectionDB } from "./DB/connectionDB.js";
 import { authRouter } from "./modules/auth/auth.controller.js";
+import { accountRouter } from "./modules/accounts/account.controller.js";
 
 const app = express();
 const port = PORT;
@@ -12,7 +13,7 @@ const port = PORT;
 const bootstrap = async () => {
   // Rate Limiting Middleware & CORS Configuration
   const limiter = rateLimit({
-    windowMs: 50 * 5 * 1000, // 5 minutes
+    windowMs: 50 * 1 * 1000, // 5 minutes
     limit: 3,
     message: "Too many requests from this IP, please try again after 5 minutes",
   });
@@ -34,6 +35,7 @@ const bootstrap = async () => {
   checkConnectionDB();
   // Routes
   app.use("/auth", authRouter);
+  app.use("/account", accountRouter);
   app.use("{/*demo}", (req, res, next) => {
     throw new Error(`Url ${req.originalUrl} Not Found!`, { cause: 404 });
   });
